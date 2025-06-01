@@ -1,0 +1,26 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://duu1jmng32tqb"]
+
+[sub_resource type="SystemFont" id="SystemFont_fxwvk"]
+
+[resource]
+GraphView/colors/edge_color = Color(0.866667, 0.866667, 0.866667, 1)
+GraphView/colors/edge_color_hover = Color(0.901961, 0.788235, 0.407843, 1)
+GraphView/colors/edge_color_preview = Color(0.509804, 0.729412, 0.968627, 1)
+GraphView/colors/edge_color_selected = Color(0.509804, 0.729412, 0.968627, 1)
+GraphView/colors/port_color = Color(1, 1, 1, 1)
+GraphView/colors/port_color_hover = Color(0.901961, 0.788235, 0.407843, 1)
+GraphView/colors/port_color_selected = Color(0.509804, 0.729412, 0.968627, 1)
+GraphView/colors/vertex_background_color = Color(0.4, 0.4, 0.4, 1)
+GraphView/colors/vertex_background_color_hover = Color(0.25098, 0.25098, 0.301961, 1)
+GraphView/colors/vertex_background_color_selected = Color(0.3, 0.3, 0.4, 1)
+GraphView/colors/vertex_border_color = Color(0.866667, 0.866667, 0.866667, 1)
+GraphView/colors/vertex_border_color_hover = Color(0.901961, 0.788235, 0.407843, 1)
+GraphView/colors/vertex_border_color_selected = Color(0.509804, 0.729412, 0.968627, 1)
+GraphView/colors/vertex_label_color = Color(1, 1, 1, 1)
+GraphView/colors/vertex_label_color_hover = Color(1, 1, 1, 1)
+GraphView/colors/vertex_label_color_selected = Color(1, 1, 1, 1)
+GraphView/colors/vertex_label_hover_color = Color(0, 0, 0, 1)
+GraphView/colors/view_background_color = Color(0.18, 0.18, 0.2, 1)
+GraphView/colors/view_border_color = Color(0.5, 0.5, 0.6, 1)
+GraphView/colors/view_grid_color = Color(0.25098, 0.25098, 0.301961, 1)
+GraphView/fonts/vertex_label = SubResource("SystemFont_fxwvk")
