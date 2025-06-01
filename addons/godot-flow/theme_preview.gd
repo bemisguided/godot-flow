@@ -13,7 +13,7 @@ var port_angle = 0.0 # Facing right
 var port_rect_extension = 20.0
 
 func _enter_tree() -> void:
-    __graph_view = get_node("VBoxContainer/GraphView")
+    __graph_view = get_node("GraphView")
 
 func _ready() -> void:
     __vertex1 = __graph_view.add_vertex(Vector2(100, 100), "Vertex 1")
