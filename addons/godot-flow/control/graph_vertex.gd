@@ -11,7 +11,8 @@ signal vertex_updated(vertex: GraphVertex)
 
 # Constants =======================================================================================
 
-const FIXED_HEIGHT := 50
+const FIXED_HEIGHT := 60
+const SNAP_WIDTH := 20
 const LABEL_FONT_SIZE := 16
 const LABEL_PADDING := 48
 const MIN_WIDTH := 120
@@ -39,6 +40,7 @@ func __calc_box_size() -> Vector2:
     var label_width = __calc_label_size().x
     var padding = LABEL_PADDING
     var width = max(MIN_WIDTH, label_width + padding)
+    width = ceil(width / SNAP_WIDTH) * SNAP_WIDTH
     var height = FIXED_HEIGHT
     return Vector2(width, height)
 
@@ -157,7 +159,7 @@ func __unselect() -> void:
 
 # Public Methods ==================================================================================
 
-func add_port(side: int, direction: GraphPort.Direction = GraphPort.Direction.ANY) -> GraphPort:
+func add_port(side: int, direction: GraphPort.Direction = GraphPort.Direction.BOTH) -> GraphPort:
     var port = GraphPort.new(__control, self, Vector2.ZERO, direction, side)
     __ports.append(port)
     port.port_updated.connect(__on_port_updated)

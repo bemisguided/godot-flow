@@ -36,8 +36,12 @@ var __zoom_factor: float = 1.0
 var __pan_offset: Vector2 = Vector2.ZERO
 var __pan_drag_start_offset: Vector2 = Vector2.ZERO
 var __pan_drag_start_mouse: Vector2 = Vector2.ZERO
+var __port_template: Callable = Callable(self, "__default_port_template")
 
 # Internal Methods ================================================================================
+
+func __default_port_template(vertex: GraphVertex):
+    pass
 
 func __draw_edge_preview():
     # Show a preview edge when dragging from a port
@@ -265,8 +269,8 @@ func __draw_border():
 
 # Methods =========================================================================================
 
-func add_edge(from_vertex: GraphVertex, from_port: GraphPort, to_vertex: GraphVertex, to_port: GraphPort) -> GraphEdge:
-    var edge = GraphEdge.new(self, from_vertex, from_port, to_vertex, to_port)
+func add_edge(from_vertex: GraphVertex, out_port: GraphPort, to_vertex: GraphVertex, in_port: GraphPort) -> GraphEdge:
+    var edge = GraphEdge.new(self, from_vertex, out_port, to_vertex, in_port)
     edge.edge_selected.connect(Callable(self, "__on_edge_selected"))
     edge.edge_hovered.connect(Callable(self, "__on_edge_hovered"))
     __edges.append(edge)
@@ -275,6 +279,7 @@ func add_edge(from_vertex: GraphVertex, from_port: GraphPort, to_vertex: GraphVe
 
 func add_vertex(_position: Vector2, _title: String) -> GraphVertex:
     var vertex = GraphVertex.new(self, _position, _title)
+    __port_template.call(vertex)
     vertex.vertex_selected.connect(Callable(self, "__on_vertex_selected"))
     vertex.vertex_hovered.connect(Callable(self, "__on_vertex_hovered"))
     __vertices.append(vertex)
@@ -311,6 +316,9 @@ func select_vertex(vertex: GraphVertex) -> void:
 
 func get_zoom_factor() -> float:
     return __zoom_factor
+
+func set_port_template(template: Callable) -> void:
+    __port_template = template
 
 func set_zoom_factor(value: float) -> void:
     __zoom_factor = clamp(value, ZOOM_MIN, ZOOM_MAX)
@@ -356,7 +364,3 @@ func _ready():
     __input_controller.mouse_hover_on.connect(Callable(self, "__on_mouse_hover_on"))
     __input_controller.mouse_hover_off.connect(Callable(self, "__on_mouse_hover_off"))
     __input_controller.mouse_wheel.connect(Callable(self, "__on_mouse_wheel"))
-    # var a = add_vertex(Vector2(100, 100), "Start")
-    # var a_port = a.add_port(GraphPort.Side.BOTTOM)
-    # var b = add_vertex(Vector2(300, 200), "End")
-    # var b_port = b.add_port(GraphPort.Side.TOP)

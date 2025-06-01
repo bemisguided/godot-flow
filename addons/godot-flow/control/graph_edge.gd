@@ -14,22 +14,22 @@ signal edge_selected(edge: GraphEdge)
 # Properties ======================================================================================
 
 var __control: GraphView
-var __from_port: GraphPort
+var __out_port: GraphPort
 var __from_vertex: GraphVertex
 var __hovered := false
 var __metadata: Dictionary = {}
 var __is_selected := false
-var __to_port: GraphPort
+var __in_port: GraphPort
 var __to_vertex: GraphVertex
 
 # Constructors ====================================================================================
 
-func _init(control: GraphView, from_vertex: GraphVertex, from_port: GraphPort, to_vertex: GraphVertex, to_port: GraphPort):
+func _init(control: GraphView, from_vertex: GraphVertex, out_port: GraphPort, to_vertex: GraphVertex, in_port: GraphPort):
     __control = control
     __from_vertex = from_vertex
-    __from_port = from_port
+    __out_port = out_port
     __to_vertex = to_vertex
-    __to_port = to_port
+    __in_port = in_port
 
 # Internal Methods ================================================================================
 
@@ -42,9 +42,9 @@ func __draw() -> void:
         color = canvas.get_theme_color("edge_color_selected", "GraphView")
     elif __hovered:
         color = canvas.get_theme_color("edge_color_hover", "GraphView")
-    var from_pos = (__from_port.get_global_position() - origin) * zoom_factor
-    var to_pos = (__to_port.get_global_position() - origin) * zoom_factor
-    var bezier = Geometry.get_bezier_points(from_pos, to_pos)
+    var out_pos = (__out_port.get_global_position() - origin) * zoom_factor
+    var in_pos = (__in_port.get_global_position() - origin) * zoom_factor
+    var bezier = Geometry.get_bezier_points(out_pos, in_pos)
     var thickness = 2 * zoom_factor
     Drawing.draw_cubic_bezier(canvas, bezier[0], bezier[1], bezier[2], bezier[3], color, thickness)
     Drawing.draw_connection_arrow(canvas, bezier[0], bezier[1], bezier[2], bezier[3], color, zoom_factor)
@@ -55,9 +55,9 @@ func __is_hovered() -> bool:
 func __is_mouse_hover(mouse_pos: Vector2) -> bool:
     var zoom_factor = __control.__get_zoom_factor()
     var origin = __control.__get_pan_offset()
-    var from_pos = (__from_port.get_global_position() - origin) * zoom_factor
-    var to_pos = (__to_port.get_global_position() - origin) * zoom_factor
-    var bezier = Geometry.get_bezier_points(from_pos, to_pos)
+    var out_pos = (__out_port.get_global_position() - origin) * zoom_factor
+    var in_pos = (__in_port.get_global_position() - origin) * zoom_factor
+    var bezier = Geometry.get_bezier_points(out_pos, in_pos)
     var arrow = Geometry.get_arrow_triangle(bezier[0], bezier[1], bezier[2], bezier[3], 28.0 * zoom_factor, 18.0 * zoom_factor)
     return Geometry.is_point_in_triangle(mouse_pos, arrow[0], arrow[1], arrow[2])
 
